@@ -12,14 +12,39 @@ function App() {
   });
   const handleSubmit = (e) => {
     e.preventDefault()
+if(!name){
+  showAlert(true,"danger", "please enter value");
+  return;
+}
+else {
+
+
+
+
+
+
     const newItem = {id:new Date().getTime().toString(), title: name};
     setList([...list, newItem]);
     setName("");
     showAlert(true,"success", "New  Item Added");
-  }
+  }}
   
   const showAlert = (show = false,type = '', msg = '') => {
     setAlert({show,type,msg})
+  };
+
+function clearItems() {
+  setList([]);
+  showAlert(true,"danger", "all items cleared");
+
+
+  }
+
+  function removeItem(id) {
+    setList(list.filter((item) => item.id !== id));
+    showAlert(true,"danger", "item removed");
+
+
   }
   return (
     <section className="section-center">
@@ -37,8 +62,9 @@ function App() {
       {
         list.length > 0 && (
           <div className="grocery-container">
-            <List items={list}/>
-            <button className="clear-btn">clear list</button>
+           {}
+            <List items={list} removeItem={removeItem}/>
+            <button onClick={clearItems} className="clear-btn">clear list</button>
           </div>
         )
       }
